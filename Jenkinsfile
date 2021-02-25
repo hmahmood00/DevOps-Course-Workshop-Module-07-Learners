@@ -1,11 +1,16 @@
-Jenkinsfile (Declarative Pipeline)
 pipeline {
-    agent any
+    agent {
+        docker { image 'mcr.microsoft.com/dotnet/sdk:5.0' }
+    }
+
+    environment {
+        DOTNET_CLI_HOME = '/tmp'
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh "dotnet build"
             }
         }
         stage('Test') {
